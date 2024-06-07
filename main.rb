@@ -38,25 +38,53 @@ class Show
     sleep(1)
   end
 
+  def cardTranslate card
+    case card
+    when 1
+      return 'A'
+    when 11
+      return 'J'
+    when 12
+      return 'Q'
+    when 13
+      return 'K'
+    else
+      return card
+    end
+  end
+
   def cardList playerCardList, dealerCardList
-    dealerCardListByShow = dealerCardList.dup
+    playerCardListByShow = []
+    playerCardList.each do |num|
+      playerCardListByShow.push(cardTranslate(num))
+    end
+    dealerCardListByShow = []
+    dealerCardList.each do |num|
+      dealerCardListByShow.push(cardTranslate(num))
+    end
     dealerCardListByShow[1] = '?'
-    puts "ディーラーのカード : #{dealerCardListByShow}"
-    wait()
-    puts "あなたのカード : #{playerCardList} : 合計(#{playerCardList.sum})"
+    puts "ディーラーのカード : [#{dealerCardListByShow.join(', ')}]"
+    puts "あなたのカード : [#{playerCardListByShow.join(', ')}] : 合計(#{playerCardList.sum})"
     wait()
   end
 
   def allCardList playerCardList, dealerCardList
-    puts "ディーラーのカード : #{dealerCardList} : 合計(#{dealerCardList.sum})"
-    puts "あなたのカード : #{playerCardList} : 合計(#{playerCardList.sum})"
+    playerCardListByShow = []
+    playerCardList.each do |num|
+      playerCardListByShow.push(cardTranslate(num))
+    end
+    dealerCardListByShow = []
+    dealerCardList.each do |num|
+      dealerCardListByShow.push(cardTranslate(num))
+    end
+    puts "ディーラーのカード : [#{dealerCardListByShow.join(', ')}] : 合計(#{dealerCardList.sum})"
+    puts "あなたのカード : [#{playerCardListByShow.join(', ')}] : 合計(#{playerCardList.sum})"
     wait()
   end
 
   def command
     puts "1）ＨＩＴ：もう１枚カードを引く"
     puts "2）ＳＴＡＮＤ：現在のカードで勝負する"
-    wait()
     printf ">"
   end
 
@@ -76,7 +104,7 @@ class Show
   end
 
   def playerNewCard card
-    puts "あなたは#{card}を引いた"
+    puts "あなたは#{cardTranslate(card)}を引いた"
     wait()
   end
 
@@ -91,7 +119,7 @@ class Show
   end
 
   def dealerNewCard card
-    puts "ディーラーは#{card}を引いた"
+    puts "ディーラーは#{cardTranslate(card)}を引いた"
     wait()
   end
 
