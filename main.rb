@@ -39,7 +39,9 @@ class Show
   end
 
   def cardList playerCardList, dealerCardList
-    puts "ディーラーのカード : #{dealerCardList}"
+    dealerCardListByShow = dealerCardList.dup
+    dealerCardListByShow[1] = '?'
+    puts "ディーラーのカード : #{dealerCardListByShow}"
     wait()
     puts "あなたのカード : #{playerCardList} : 合計(#{playerCardList.sum})"
     wait()
